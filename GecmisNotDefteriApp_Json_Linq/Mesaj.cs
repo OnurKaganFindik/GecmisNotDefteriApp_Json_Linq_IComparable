@@ -21,7 +21,16 @@ namespace GecmisNotDefteriApp_Json_Linq
         public string Icerik { get; set; } 
         public bool YildizliMi { get; set; }
 
-        
+        public override string ToString()
+        {
+            string yildiz = YildizliMi ? "★" : "☆";
+
+            string tarih = Zaman.Date == DateTime.Now.Date
+                ? Zaman.ToString("HH:mm")
+                : Zaman.ToString("dd.MM.yyyy HH:mm");
+            return $"{yildiz}[{tarih}]{Icerik}";
+        }
+
 
     }
 }

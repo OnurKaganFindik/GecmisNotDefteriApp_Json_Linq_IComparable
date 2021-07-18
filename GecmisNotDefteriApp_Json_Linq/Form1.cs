@@ -42,7 +42,16 @@ namespace GecmisNotDefteriApp_Json_Linq
                 return;
             }
             _blMesajlar.Add(new Mesaj(icerik));
+            txtMesaj.Clear();
+        }
 
+        private void txtMesaj_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                btnEkle.PerformClick();
+            }
         }
     }
 }
