@@ -29,10 +29,14 @@ namespace GecmisNotDefteriApp_Json_Linq
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.lstMesajlar = new System.Windows.Forms.ListBox();
             this.txtMesaj = new System.Windows.Forms.TextBox();
             this.btnEkle = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmsMesajlar = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmiSil = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsMesajlar.SuspendLayout();
             this.SuspendLayout();
             // 
             // lstMesajlar
@@ -45,7 +49,9 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.lstMesajlar.Location = new System.Drawing.Point(12, 76);
             this.lstMesajlar.Name = "lstMesajlar";
             this.lstMesajlar.Size = new System.Drawing.Size(439, 554);
-            this.lstMesajlar.TabIndex = 0;
+            this.lstMesajlar.TabIndex = 2;
+            this.lstMesajlar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstMesajlar_KeyDown);
+            this.lstMesajlar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstMesajlar_MouseDown);
             // 
             // txtMesaj
             // 
@@ -54,7 +60,7 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.txtMesaj.Location = new System.Drawing.Point(12, 38);
             this.txtMesaj.Name = "txtMesaj";
             this.txtMesaj.Size = new System.Drawing.Size(272, 32);
-            this.txtMesaj.TabIndex = 1;
+            this.txtMesaj.TabIndex = 0;
             this.txtMesaj.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txtMesaj_KeyDown);
             // 
             // btnEkle
@@ -64,7 +70,7 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.btnEkle.Location = new System.Drawing.Point(290, 38);
             this.btnEkle.Name = "btnEkle";
             this.btnEkle.Size = new System.Drawing.Size(161, 34);
-            this.btnEkle.TabIndex = 2;
+            this.btnEkle.TabIndex = 1;
             this.btnEkle.Text = "EKLE";
             this.btnEkle.UseVisualStyleBackColor = true;
             this.btnEkle.Click += new System.EventHandler(this.btnEkle_Click);
@@ -77,6 +83,20 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.label1.Size = new System.Drawing.Size(99, 26);
             this.label1.TabIndex = 3;
             this.label1.Text = "Mesajın :";
+            // 
+            // cmsMesajlar
+            // 
+            this.cmsMesajlar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmiSil});
+            this.cmsMesajlar.Name = "cmsMesajlar";
+            this.cmsMesajlar.Size = new System.Drawing.Size(181, 48);
+            this.cmsMesajlar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsMesajlar_ItemClicked);
+            // 
+            // tsmiSil
+            // 
+            this.tsmiSil.Name = "tsmiSil";
+            this.tsmiSil.Size = new System.Drawing.Size(86, 22);
+            this.tsmiSil.Text = "Sil";
             // 
             // Form1
             // 
@@ -91,6 +111,7 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.cmsMesajlar.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -102,6 +123,8 @@ namespace GecmisNotDefteriApp_Json_Linq
         private System.Windows.Forms.TextBox txtMesaj;
         private System.Windows.Forms.Button btnEkle;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ContextMenuStrip cmsMesajlar;
+        private System.Windows.Forms.ToolStripMenuItem tsmiSil;
     }
 }
 

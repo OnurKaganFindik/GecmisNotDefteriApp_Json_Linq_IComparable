@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace GecmisNotDefteriApp_Json_Linq
 {
-   public class Mesaj
+   public class Mesaj: IComparable
     {
         public Mesaj()
         {
-
+             
         }
         public Mesaj(string icerik)
         {
@@ -20,6 +20,12 @@ namespace GecmisNotDefteriApp_Json_Linq
         public DateTime Zaman { get; set; } = DateTime.Now;
         public string Icerik { get; set; } 
         public bool YildizliMi { get; set; }
+
+        public int CompareTo(object diger)
+        {
+            Mesaj digerMesaj = (Mesaj)diger;
+            return -Zaman.CompareTo(digerMesaj.Zaman);
+        }
 
         public override string ToString()
         {

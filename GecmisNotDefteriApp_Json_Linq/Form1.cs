@@ -41,7 +41,9 @@ namespace GecmisNotDefteriApp_Json_Linq
                 MessageBox.Show("Lütfen bir mesaj giriniz.");
                 return;
             }
-            _blMesajlar.Add(new Mesaj(icerik));
+            _mesajlar.Add(new Mesaj(icerik));
+            _mesajlar.Sort();
+            _blMesajlar.ResetBindings();
             txtMesaj.Clear();
         }
 
@@ -51,6 +53,46 @@ namespace GecmisNotDefteriApp_Json_Linq
             {
                 e.SuppressKeyPress = true;
                 btnEkle.PerformClick();
+            }
+        }
+
+        private void lstMesajlar_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode==Keys.Delete)
+            {
+                SeciliyiSil();
+            }
+        }
+
+        private void SeciliyiSil()
+        {
+            if (lstMesajlar.SelectedIndex>-1)
+            {
+                Mesaj mesaj = (Mesaj)lstMesajlar.SelectedItem;
+                _blMesajlar.Remove(mesaj);
+            }
+        }
+
+        private void lstMesajlar_MouseDown(object sender, MouseEventArgs e)
+        {
+            int index = lstMesajlar.IndexFromPoint(e.Location);
+            if (index > -1 && e.Button == MouseButtons.Right) 
+            {
+                lstMesajlar.SelectedIndex = index;
+                cmsMesajlar.Show(Cursor.Position);
+            }
+           
+
+        }
+
+        private void cmsMesajlar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            if (e.ClickedItem==tsmiSil)
+            {
+                if (e.ClickedItem==tsmiSil)
+                {
+                    SeciliyiSil();
+                }
             }
         }
     }
