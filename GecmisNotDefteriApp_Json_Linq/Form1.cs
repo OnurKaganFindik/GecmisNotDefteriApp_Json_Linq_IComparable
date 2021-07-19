@@ -23,7 +23,21 @@ namespace GecmisNotDefteriApp_Json_Linq
 
         private void Listele()
         {
-            lstMesajlar.DataSource = _blMesajlar;
+            string ara = txtAra.Text.Trim().ToLower();
+            bool sadeceFav = chkSadeceFavoriler.Checked;
+
+            if (ara==""&&!sadeceFav)
+            {
+
+                lstMesajlar.DataSource = _blMesajlar;
+            }
+            else
+            {
+                lstMesajlar.DataSource = _mesajlar
+                    .Where(x => (!sadeceFav|| x.YildizliMi) && 
+                                (ara=="" ||x.Icerik.ToLower().Contains(ara)))
+                                .ToList();
+            }
         }
 
         private void VerileriOku()
@@ -36,7 +50,7 @@ namespace GecmisNotDefteriApp_Json_Linq
         {
             var icerik = txtMesaj.Text;
 
-            if (icerik=="")
+            if (icerik == "")
             {
                 MessageBox.Show("Lütfen bir mesaj giriniz.");
                 return;
@@ -45,11 +59,12 @@ namespace GecmisNotDefteriApp_Json_Linq
             _mesajlar.Sort();
             _blMesajlar.ResetBindings();
             txtMesaj.Clear();
+            Listele();
         }
 
         private void txtMesaj_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Enter)
+            if (e.KeyCode == Keys.Enter)
             {
                 e.SuppressKeyPress = true;
                 btnEkle.PerformClick();
@@ -58,7 +73,7 @@ namespace GecmisNotDefteriApp_Json_Linq
 
         private void lstMesajlar_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode==Keys.Delete)
+            if (e.KeyCode == Keys.Delete)
             {
                 SeciliyiSil();
             }
@@ -66,34 +81,63 @@ namespace GecmisNotDefteriApp_Json_Linq
 
         private void SeciliyiSil()
         {
-            if (lstMesajlar.SelectedIndex>-1)
+            if (lstMesajlar.SelectedIndex > -1)
             {
-                Mesaj mesaj = (Mesaj)lstMesajlar.SelectedItem;
-                _blMesajlar.Remove(mesaj);
+                DialogResult dr = MessageBox.Show("Seçili mesajı silmek istediğinizden emin misiniz?", "Silme Onayı", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button2);
+                if (dr == DialogResult.Yes)
+                {
+                    Mesaj mesaj = (Mesaj)lstMesajlar.SelectedItem;
+                    _blMesajlar.Remove(mesaj);
+                }
             }
         }
 
         private void lstMesajlar_MouseDown(object sender, MouseEventArgs e)
         {
             int index = lstMesajlar.IndexFromPoint(e.Location);
-            if (index > -1 && e.Button == MouseButtons.Right) 
+            if (index > -1 && e.Button == MouseButtons.Right)
             {
                 lstMesajlar.SelectedIndex = index;
+                Mesaj mesaj = (Mesaj)lstMesajlar.Items[index];
+                tsmiFavori.Text = mesaj.YildizliMi ? "Favorilerden Kaldır" : "Favorilere Ekle";
                 cmsMesajlar.Show(Cursor.Position);
             }
-           
+
 
         }
 
         private void cmsMesajlar_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
         {
-            if (e.ClickedItem==tsmiSil)
+
+            if (e.ClickedItem == tsmiSil)
             {
-                if (e.ClickedItem==tsmiSil)
-                {
-                    SeciliyiSil();
-                }
+                SeciliyiSil();
             }
+            else if (e.ClickedItem==tsmiFavori)
+            {
+                SeciliFavoriGuncelle();
+            }
+
+        }
+
+        private void SeciliFavoriGuncelle()
+        {
+            if (lstMesajlar.SelectedIndex>-1)
+            {
+                Mesaj mesaj = (Mesaj)lstMesajlar.SelectedItem;
+                mesaj.YildizliMi = !mesaj.YildizliMi;
+                _blMesajlar.ResetBindings();
+            }
+        }
+
+        private void chkSadeceFavoriler_CheckedChanged(object sender, EventArgs e)
+        {
+            Listele();
+        }
+
+        private void txtAra_TextChanged(object sender, EventArgs e)
+        {
+            Listele();
         }
     }
 }
