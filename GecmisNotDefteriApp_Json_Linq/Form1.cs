@@ -13,7 +13,6 @@ namespace GecmisNotDefteriApp_Json_Linq
     public partial class Form1 : Form
     {
         private List<Mesaj> _mesajlar;
-        private BindingList<Mesaj> _blMesajlar;
         public Form1()
         {
             VerileriOku();
@@ -26,24 +25,16 @@ namespace GecmisNotDefteriApp_Json_Linq
             string ara = txtAra.Text.Trim().ToLower();
             bool sadeceFav = chkSadeceFavoriler.Checked;
 
-            if (ara==""&&!sadeceFav)
-            {
-
-                lstMesajlar.DataSource = _blMesajlar;
-            }
-            else
-            {
                 lstMesajlar.DataSource = _mesajlar
                     .Where(x => (!sadeceFav|| x.YildizliMi) && 
                                 (ara=="" ||x.Icerik.ToLower().Contains(ara)))
                                 .ToList();
-            }
+            
         }
 
         private void VerileriOku()
         {
             _mesajlar = new List<Mesaj>();
-            _blMesajlar = new BindingList<Mesaj>(_mesajlar);
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
@@ -57,7 +48,6 @@ namespace GecmisNotDefteriApp_Json_Linq
             }
             _mesajlar.Add(new Mesaj(icerik));
             _mesajlar.Sort();
-            _blMesajlar.ResetBindings();
             txtMesaj.Clear();
             Listele();
         }
@@ -87,7 +77,7 @@ namespace GecmisNotDefteriApp_Json_Linq
                 if (dr == DialogResult.Yes)
                 {
                     Mesaj mesaj = (Mesaj)lstMesajlar.SelectedItem;
-                    _blMesajlar.Remove(mesaj);
+                    _mesajlar.Remove(mesaj);
                 }
             }
         }
@@ -126,7 +116,7 @@ namespace GecmisNotDefteriApp_Json_Linq
             {
                 Mesaj mesaj = (Mesaj)lstMesajlar.SelectedItem;
                 mesaj.YildizliMi = !mesaj.YildizliMi;
-                _blMesajlar.ResetBindings();
+                Listele();
             }
         }
 
