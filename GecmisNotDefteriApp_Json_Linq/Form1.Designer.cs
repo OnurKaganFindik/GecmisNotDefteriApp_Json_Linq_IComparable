@@ -97,7 +97,7 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.tsmiFavori,
             this.tsmiDuzenle});
             this.cmsMesajlar.Name = "cmsMesajlar";
-            this.cmsMesajlar.Size = new System.Drawing.Size(182, 92);
+            this.cmsMesajlar.Size = new System.Drawing.Size(182, 70);
             this.cmsMesajlar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsMesajlar_ItemClicked);
             // 
             // tsmiSil
@@ -165,6 +165,7 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "Geçmiş Notlar";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.cmsMesajlar.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

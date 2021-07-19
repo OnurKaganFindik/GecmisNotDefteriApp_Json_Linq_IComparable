@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,7 +36,17 @@ namespace GecmisNotDefteriApp_Json_Linq
 
         private void VerileriOku()
         {
+            try
+            {
+                string json = File.ReadAllText("veri.json");
+                _mesajlar = JsonConvert.DeserializeObject<List<Mesaj>>(json);
+            }
+            catch (Exception)
+            {
+
             _mesajlar = new List<Mesaj>();
+               
+            }
         }
 
         private void btnEkle_Click(object sender, EventArgs e)
@@ -152,6 +164,17 @@ namespace GecmisNotDefteriApp_Json_Linq
                 new DuzenleForm(mesaj).ShowDialog();
                 Listele();
             }
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            VerileriKaydet();
+        }
+
+        private void VerileriKaydet()
+        {
+            string json = JsonConvert.SerializeObject(_mesajlar);
+            File.WriteAllText("veri.json", json);
         }
     }
 }
