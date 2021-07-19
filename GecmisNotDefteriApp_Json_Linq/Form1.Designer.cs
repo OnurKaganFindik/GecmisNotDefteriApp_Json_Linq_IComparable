@@ -40,6 +40,7 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.chkSadeceFavoriler = new System.Windows.Forms.CheckBox();
             this.txtAra = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tsmiDuzenle = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsMesajlar.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +56,7 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.lstMesajlar.Size = new System.Drawing.Size(439, 554);
             this.lstMesajlar.TabIndex = 2;
             this.lstMesajlar.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstMesajlar_KeyDown);
+            this.lstMesajlar.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.lstMesajlar_MouseDoubleClick);
             this.lstMesajlar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.lstMesajlar_MouseDown);
             // 
             // txtMesaj
@@ -92,9 +94,10 @@ namespace GecmisNotDefteriApp_Json_Linq
             // 
             this.cmsMesajlar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmiSil,
-            this.tsmiFavori});
+            this.tsmiFavori,
+            this.tsmiDuzenle});
             this.cmsMesajlar.Name = "cmsMesajlar";
-            this.cmsMesajlar.Size = new System.Drawing.Size(182, 48);
+            this.cmsMesajlar.Size = new System.Drawing.Size(182, 92);
             this.cmsMesajlar.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.cmsMesajlar_ItemClicked);
             // 
             // tsmiSil
@@ -140,6 +143,12 @@ namespace GecmisNotDefteriApp_Json_Linq
             this.label2.TabIndex = 6;
             this.label2.Text = "Ara:";
             // 
+            // tsmiDuzenle
+            // 
+            this.tsmiDuzenle.Name = "tsmiDuzenle";
+            this.tsmiDuzenle.Size = new System.Drawing.Size(181, 22);
+            this.tsmiDuzenle.Text = "Düzenle";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
@@ -174,6 +183,7 @@ namespace GecmisNotDefteriApp_Json_Linq
         private System.Windows.Forms.CheckBox chkSadeceFavoriler;
         private System.Windows.Forms.TextBox txtAra;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ToolStripMenuItem tsmiDuzenle;
     }
 }
 

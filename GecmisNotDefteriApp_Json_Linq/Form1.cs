@@ -39,7 +39,7 @@ namespace GecmisNotDefteriApp_Json_Linq
 
         private void btnEkle_Click(object sender, EventArgs e)
         {
-            var icerik = txtMesaj.Text;
+            var icerik = txtMesaj.Text.Trim();
 
             if (icerik == "")
             {
@@ -107,6 +107,10 @@ namespace GecmisNotDefteriApp_Json_Linq
             {
                 SeciliFavoriGuncelle();
             }
+            else if (e.ClickedItem==tsmiDuzenle)
+            {
+                SeciliyiDuzenle();
+            }
 
         }
 
@@ -128,6 +132,26 @@ namespace GecmisNotDefteriApp_Json_Linq
         private void txtAra_TextChanged(object sender, EventArgs e)
         {
             Listele();
+        }
+
+        private void lstMesajlar_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            int index = lstMesajlar.IndexFromPoint(e.Location);
+
+            if (index>-1&& e.Button==MouseButtons.Left)
+            {
+                SeciliyiDuzenle();
+            }
+        }
+
+        private void SeciliyiDuzenle()
+        {
+            if (lstMesajlar.SelectedIndex>-1)
+            {
+                Mesaj mesaj = (Mesaj)lstMesajlar.SelectedItem;
+                new DuzenleForm(mesaj).ShowDialog();
+                Listele();
+            }
         }
     }
 }
